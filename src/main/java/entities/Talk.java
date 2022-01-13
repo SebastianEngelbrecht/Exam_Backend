@@ -5,9 +5,11 @@
  */
 package entities;
 
+import dtos.TalkDTO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +18,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -23,6 +27,9 @@ import javax.persistence.Table;
  * @author sebastianengelbrecht
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Talk.deleteAllRows", query = "DELETE from Talk")
+})
 @Table(name = "talks")
 public class Talk implements Serializable {
 
@@ -32,7 +39,7 @@ public class Talk implements Serializable {
     @Column(name = "id")
     private Long id;
     @Column(name = "talk_name")
-    private String talk;
+    private String topic;
     @Column(name = "duration")
     private int duration;
     @Column(name = "props_list")
@@ -40,28 +47,37 @@ public class Talk implements Serializable {
     @ManyToOne
     @JoinColumn(name = "conference_name", referencedColumnName = "conference_name")
     private Conference conference;
-    @ManyToMany
+    @ManyToMany (cascade = { CascadeType.ALL })
     @JoinColumn(name = "speaker_name", referencedColumnName = "speaker_name")
     private List<Speaker> speakerList = new ArrayList<>();
 
     public Talk() {
     }
 
-    public Talk(String talk, int duration, Conference conference) {
+    public Talk(String topic, int duration) {
         this.id = id;
-        this.talk = talk;
+        this.topic = topic;
         this.duration = duration;
         this.propsList = new ArrayList<>();
         this.conference = conference;
         this.speakerList = new ArrayList<>();
     }
-
-    public String getTalk() {
-        return talk;
+    
+    public Talk(TalkDTO tDTO){
+        this.id = tDTO.getId();
+        this.topic = tDTO.getTopic();
+        this.duration = tDTO.getDuration();
+        this.propsList = tDTO.getPropsList();
+        this.conference = tDTO.getConference();
+        this.speakerList = tDTO.getSpeakerList();
     }
 
-    public void setTalk(String talk) {
-        this.talk = talk;
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public int getDuration() {
@@ -106,11 +122,20 @@ public class Talk implements Serializable {
         this.speakerList = speakerList;
     }
     
+    public void addSpeaker(Speaker speaker){
+        if(speaker != null){
+            this.speakerList.add(speaker);
+            //Bi-directional
+            speaker.getTalkList().add(this);
+        }
+        
+    }
+    
     
 
     @Override
     public String toString() {
-        return "Talk{" + "id=" + id + ", talk=" + talk + ", duration=" + duration + ", propsList=" + propsList + '}';
+        return "Talk{" + "id=" + id + ", talk=" + topic + ", duration=" + duration + ", propsList=" + propsList + '}';
     }
 
     

@@ -51,46 +51,21 @@ public class UserResource {
     public Response getAllConferences() throws Exception{
         return Response.ok(gson.toJson(UF.getAllConferences()), MediaType.APPLICATION_JSON).build();
     }
-
-    @Path("adduser")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public UserDTO createUser(UserDTO u) throws Exception {
-        return UF.create(u);
-    }
-
-    @Path("addarrangement")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public UserDTO addRentalArrangement(RentalArrangementDTO raDTO) {
-        System.out.println(raDTO);
-        return UF.addRentalArrangement(raDTO);
-    }
     
-    @Path("{username}")
+    @Path("{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllArrangementsWithGivenUsername(@PathParam("username") String username) throws Exception{
-        return Response.ok(gson.toJson(UF.getAllArrangementsWithGivenUsername(username)), MediaType.APPLICATION_JSON).build();
+    public Response getAllTalksByGivenSpeaker(@PathParam("id") Long id) throws Exception {
+        return Response.ok(gson.toJson(UF.getAllTalksByGivenSpeaker(id)),MediaType.APPLICATION_JSON).build();            
     }
     
-    @Path("userinfo/{username}")
+    @Path("conf/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUserByUsername(@PathParam("username") String username) throws Exception {
-        UserDTO uDTO = UF.getUser(username);
-        return Response.ok(gson.toJson(uDTO), MediaType.APPLICATION_JSON).build();
+    public Response getAllTalksByGivenConference(@PathParam("id") Long id) throws Exception {
+        return Response.ok(gson.toJson(UF.getAllTalksByGivenConference(id)), MediaType.APPLICATION_JSON).build();
     }
-    
-    @Path("addfunds")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public UserDTO addBalance(UserDTO u) {
-        return UF.addBalance(u);
-    }
+
 }
     
 

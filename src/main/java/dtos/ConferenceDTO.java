@@ -19,8 +19,8 @@ public class ConferenceDTO {
     private String name;
     private String location;
     private int capacity;
-    private LocalDate date = LocalDate.now();
-    private LocalTime time = LocalTime.now();
+    private String date;
+    private String time;
 
     public ConferenceDTO() {
     }
@@ -76,28 +76,28 @@ public class ConferenceDTO {
         this.capacity = capacity;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public LocalTime getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
     @Override
     public String toString() {
-        return "name=" + name + ", location=" + location + ", capacity=" + capacity + ", date=" + date + ", time=" + time + '}';
+        return "ConferenceDTO{" + "id=" + id + ", name=" + name + ", location=" + location + ", capacity=" + capacity + ", date=" + date + ", time=" + time + '}';
     }
 
-    
+  
     
     
 }

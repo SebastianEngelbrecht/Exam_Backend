@@ -46,9 +46,9 @@ public class Conference implements Serializable {
     @Column(name = "capacity")
     private int capacity;
     @Column(name = "date")
-    private LocalDate date = LocalDate.now();
+    private String date; 
     @Column(name = "time")
-    private LocalTime time = LocalTime.now();
+    private String time; 
     @OneToMany(mappedBy = "conference", cascade = CascadeType.ALL)
     private List<Talk> talkList;
 
@@ -56,7 +56,7 @@ public class Conference implements Serializable {
     }
     
 
-    public Conference(String name, String location, int capacity, LocalDate date, LocalTime time) {
+    public Conference(String name, String location, int capacity, String date, String time) {
         this.id = id;
         this.name = name;
         this.location = location;
@@ -99,19 +99,19 @@ public class Conference implements Serializable {
         this.capacity = capacity;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public LocalTime getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
     
@@ -132,13 +132,21 @@ public class Conference implements Serializable {
         this.talkList = talkList;
     }
     
-    
+    public void addTalk(Talk talk){
+        if(talk != null){
+            this.talkList.add(talk);
+            //Bi directional relationship
+            talk.setConference(this);
+        }
+    }
 
     @Override
     public String toString() {
-        return "Conference{" + "id=" + id + ", name=" + name + ", location=" + location + ", capacity=" + capacity + ", date=" + date + ", time=" + time + '}';
+        return "Conference{" + "id=" + id + ", name=" + name + ", location=" + location + ", capacity=" + capacity + ", date=" + date + ", time=" + time + ", talkList=" + talkList + '}';
     }
+    
 
+   
   
 
     

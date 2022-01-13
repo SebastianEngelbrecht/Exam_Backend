@@ -4,10 +4,13 @@ import dtos.ArrangementsListDTO;
 import dtos.ConferenceDTO;
 import dtos.ConferenceListDTO;
 import dtos.RentalArrangementDTO;
+import dtos.TalkListDTO;
 import dtos.UserDTO;
 import entities.Conference;
 import entities.RentalArrangement;
 import entities.Role;
+import entities.Speaker;
+import entities.Talk;
 import entities.User;
 import errorhandling.API_Exception;
 import java.time.LocalDate;
@@ -58,7 +61,7 @@ public class UserFacade {
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-    
+    /*
     public UserDTO create(UserDTO u) throws Exception {
         EntityManager em = getEntityManager();
         User user = null;
@@ -147,6 +150,7 @@ public class UserFacade {
         
         return new UserDTO(u);
     }
+    */
     // Get All Conferences Method.
      public ConferenceListDTO getAllConferences() throws Exception{
         EntityManager em = emf.createEntityManager();
@@ -155,7 +159,46 @@ public class UserFacade {
         cList = query.getResultList();
         return new ConferenceListDTO(cList);
     }
-
+     
+     // See all talks by a specific speaker.
+     public TalkListDTO getAllTalksByGivenSpeaker(Long id) throws Exception {
+        EntityManager em = getEntityManager();
+        List<Talk> tList;
+        TypedQuery<Talk> query = em.createQuery("SELECT t FROM Talk t JOIN t.speakerList s WHERE s.id = :id", Talk.class);
+        query.setParameter("id", id);
+        tList = query.getResultList();
+        return new TalkListDTO(tList);
+     }
+     
+     //See all talks by a specific Conference
+     public TalkListDTO getAllTalksByGivenConference(Long id) throws Exception {
+         EntityManager em = getEntityManager();
+         List<Talk> t2List;
+         TypedQuery<Talk> query = em.createQuery("SELECT t FROM Talk t JOIN t.conference c WHERE c.id = :id",Talk.class);
+         query.setParameter("id", id);
+         t2List = query.getResultList();
+         return new TalkListDTO(t2List);
+     }
+     
+     //Delete a talk
+     public void deleteTalk(int id) throws Exception {
+        EntityManager em = getEntityManager();
+        Talk talk;
+        try {
+            em.getTransaction().begin();
+                talk = em.find(Talk.class, id);
+                if(talk == null){
+                    throw new Exception("could not delete, no id found");
+                }
+                em.remove(talk);
+                em.getTransaction().commit();
+            
+        } finally {
+            em.close();
+        }
+        
+    }
   
+
     
 }

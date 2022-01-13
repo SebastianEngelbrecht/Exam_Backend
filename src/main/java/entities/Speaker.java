@@ -5,9 +5,11 @@
  */
 package entities;
 
+import dtos.SpeakerDTO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -22,6 +26,9 @@ import javax.persistence.Table;
  * @author sebastianengelbrecht
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Speaker.deleteAllRows", query = "DELETE from Speaker")
+})
 @Table(name = "speakers")
 public class Speaker implements Serializable {
 
@@ -36,7 +43,7 @@ public class Speaker implements Serializable {
     private String profession;
     @Column(name = "gender")
     private String gender;
-    @ManyToMany
+    @ManyToMany (cascade = { CascadeType.ALL })
     @JoinColumn(name = "talk_name", referencedColumnName = "talk_name")
     private List<Talk> talkList = new ArrayList<>();
 
@@ -49,6 +56,14 @@ public class Speaker implements Serializable {
         this.profession = profession;
         this.gender = gender;
         this.talkList = new ArrayList<>();
+    }
+    
+    public Speaker(SpeakerDTO sDTO){
+        this.id = sDTO.getId();
+        this.name = sDTO.getName();
+        this.profession = sDTO.getProfession();
+        this.gender = sDTO.getGender();
+        this.talkList = sDTO.getTalkList();
     }
 
     public String getName() {
@@ -91,6 +106,14 @@ public class Speaker implements Serializable {
 
     public void setTalkList(List<Talk> talkList) {
         this.talkList = talkList;
+    }
+    
+    public void addTalk(Talk talk){
+        if(talk != null){
+            this.talkList.add(talk);
+            //Bi-directional
+            talk.getSpeakerList().add(this);
+        }
     }
     
     

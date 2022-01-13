@@ -5,6 +5,7 @@
  */
 package dtos;
 
+import entities.Speaker;
 import entities.Talk;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 public class SpeakerDTO {
     
+    private Long id;
     private String name;
     private String profession;
     private String gender;
@@ -24,9 +26,19 @@ public class SpeakerDTO {
     }
 
     public SpeakerDTO(String name, String profession, String gender) {
+        this.id = id;
         this.name = name;
         this.profession = profession;
         this.gender = gender;
+        this.talkList = talkList;
+    }
+    
+    public SpeakerDTO(Speaker s){
+        this.id = s.getId();
+        this.name = s.getName();
+        this.profession = s.getProfession();
+        this.gender = s.getGender();
+        this.talkList = s.getTalkList();
     }
 
     public String getName() {
@@ -60,6 +72,16 @@ public class SpeakerDTO {
     public void setTalkList(List<Talk> talkList) {
         this.talkList = talkList;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    
     
    
     
