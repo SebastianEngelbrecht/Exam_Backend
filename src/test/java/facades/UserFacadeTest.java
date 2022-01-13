@@ -5,12 +5,16 @@
  */
 package facades;
 
+import dtos.ConferenceDTO;
+import dtos.ConferenceListDTO;
 import dtos.RentalArrangementDTO;
 import dtos.UserDTO;
+import entities.Conference;
 import entities.RentalArrangement;
 import entities.Role;
 import entities.User;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -37,6 +41,7 @@ public class UserFacadeTest {
     
     User u1,u2,u3;
     RentalArrangement ra1,ra2,ra3;
+    Conference c1,c2,c3;
     
     public UserFacadeTest() {}
     
@@ -53,6 +58,9 @@ public class UserFacadeTest {
             Role adminRole = new Role("admin");
             u2 = new User("user2", "test321", "testvej2", "testby2", "1234", 55);
             u3 = new User("user3", "test3", "testvej3", "testby3", "1234", 100);
+            c1 = new Conference("CES","Las Vegas",100,LocalDate.now(),LocalTime.now());
+            c2 = new Conference("E3","LA",200,LocalDate.now(),LocalTime.now());
+            c3 = new Conference("Apple","Dubai",300,LocalDate.now(), LocalTime.now());
             ra1 = new RentalArrangement("testFilm1");
             ra2 = new RentalArrangement("testFilm2");
             ra3 = new RentalArrangement("testFilm3");
@@ -65,11 +73,15 @@ public class UserFacadeTest {
             em.createNamedQuery("RentalArrangement.deleteAllRows").executeUpdate();
             em.createNamedQuery("User.deleteAllRows").executeUpdate();
             em.createNamedQuery("Role.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Conference.deleteAllRows").executeUpdate();
            
             em.persist(userRole);
             em.persist(adminRole);
             em.persist(u2);
             em.persist(u3);
+            em.persist(c1);
+            em.persist(c2);
+            em.persist(c3);
             
             em.getTransaction().commit();
         } finally {
@@ -142,6 +154,15 @@ public class UserFacadeTest {
         int expected = uDTO.getUserBalance() + u3.getUserBalance();
         int actual = facade.addBalance(uDTO).getUserBalance();
         assertEquals(expected, actual);
+    }
+    
+    @Test
+    void getAllConferencesTest() throws Exception {
+        System.out.println("Testing getAllConferences(ConferenceDTO uDTO");
+        int expected = 3;
+        ConferenceListDTO result = facade.getAllConferences();
+        assertEquals(expected,result.getAll().size());
+        System.out.println(result.getAll());
     }
     
     }

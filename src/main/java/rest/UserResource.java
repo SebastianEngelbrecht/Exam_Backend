@@ -44,6 +44,13 @@ public class UserResource {
 
     public UserResource() {
     }
+    
+    @Path("conf")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllConferences() throws Exception{
+        return Response.ok(gson.toJson(UF.getAllConferences()), MediaType.APPLICATION_JSON).build();
+    }
 
     @Path("adduser")
     @POST

@@ -1,8 +1,11 @@
 package facades;
 
 import dtos.ArrangementsListDTO;
+import dtos.ConferenceDTO;
+import dtos.ConferenceListDTO;
 import dtos.RentalArrangementDTO;
 import dtos.UserDTO;
+import entities.Conference;
 import entities.RentalArrangement;
 import entities.Role;
 import entities.User;
@@ -144,5 +147,15 @@ public class UserFacade {
         
         return new UserDTO(u);
     }
+    // Get All Conferences Method.
+     public ConferenceListDTO getAllConferences() throws Exception{
+        EntityManager em = emf.createEntityManager();
+        List<Conference> cList;
+        TypedQuery<Conference> query = em.createQuery("SELECT c FROM Conference c", Conference.class);
+        cList = query.getResultList();
+        return new ConferenceListDTO(cList);
+    }
+
+  
     
 }
