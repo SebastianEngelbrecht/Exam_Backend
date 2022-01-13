@@ -28,6 +28,8 @@ public class SetupTestUsers {
     User user = new User("userTest", "test123", "TestVej", "TestCity", "1000", 100);
     User admin = new User("admin", "test321123", "", "", "", 0);
     Conference conf = new Conference("CES","Las Vegas",100,"Mandag","morgen");
+    Conference conf2 = new Conference("E3","New York",200,"onsdag","formiddag");
+    Conference conf3 = new Conference("Comic con","Los Angelos",300,"fredag","eftermiddag");
     Speaker speaker1 = new Speaker("Tobias","GameDEV","Boy");
     Talk talk1 = new Talk("Games",10);
     //if(admin.getUserPass().equals("test")||user.getUserPass().equals("test")||both.getUserPass().equals("test"))
@@ -41,6 +43,8 @@ public class SetupTestUsers {
     conf.addTalk(talk1);
     speaker1.addTalk(talk1);
     em.persist(conf);
+    em.persist(conf2);
+    em.persist(conf3);
     
     
 

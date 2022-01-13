@@ -198,7 +198,23 @@ public class UserFacade {
         }
         
     }
-  
+     
+     //Create new conference
+    /* public ConferenceDTO createConference(ConferenceDTO confDTO){
+         Conference conf = null;
+         EntityManager em = emf.createEntityManager();
+         try{
+             conf = new Conference(confDTO);
+             em.getTransaction().begin();
+             em.persist(conf);
+             em.getTransaction().commit();
+         } finally {
+             em.close();
+         }
+        return new ConferenceDTO(conf);
+
+    }
+  */
 
     
 }

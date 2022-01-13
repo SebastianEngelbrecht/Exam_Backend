@@ -45,26 +45,29 @@ public class UserResource {
     public UserResource() {
     }
     
+    //US 1
     @Path("conf")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllConferences() throws Exception{
         return Response.ok(gson.toJson(UF.getAllConferences()), MediaType.APPLICATION_JSON).build();
     }
-    
-    @Path("{id}")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllTalksByGivenSpeaker(@PathParam("id") Long id) throws Exception {
-        return Response.ok(gson.toJson(UF.getAllTalksByGivenSpeaker(id)),MediaType.APPLICATION_JSON).build();            
-    }
-    
+     //US 2
     @Path("conf/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllTalksByGivenConference(@PathParam("id") Long id) throws Exception {
         return Response.ok(gson.toJson(UF.getAllTalksByGivenConference(id)), MediaType.APPLICATION_JSON).build();
     }
+    
+    //US 3
+    @Path("speak/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllTalksByGivenSpeaker(@PathParam("id") Long id) throws Exception {
+        return Response.ok(gson.toJson(UF.getAllTalksByGivenSpeaker(id)),MediaType.APPLICATION_JSON).build();            
+    }
+   
 
 }
     

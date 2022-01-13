@@ -24,6 +24,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -136,6 +137,15 @@ public class UserFacadeTest {
         System.out.println(c1.getId());
     }
     
+    /* @Test
+        void createConference() throws Exception {
+        System.out.println("create Conference");
+        ConferenceDTO cDTO;
+        Conference newConf = new Conference("name","location",20,"date","time");
+        cDTO = facade.createConference(new ConferenceDTO(newConf));
+        assertNotNull(newConf.getId());
+    }
+    */
     }
     
     
