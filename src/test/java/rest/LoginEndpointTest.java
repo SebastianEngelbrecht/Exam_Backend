@@ -71,7 +71,7 @@ public class LoginEndpointTest {
 
             Role userRole = new Role("user");
             Role adminRole = new Role("admin");
-            User user = new User("userTest", "test123", "TestVej", "TestCity", "1000", 100);
+            User user = new User("userTest", "test123", "TestVej", "TestCity", "1000");
             user.addRole(userRole);
             //User admin = new User("admin", "test");
             //admin.addRole(adminRole);

@@ -7,11 +7,9 @@ package facades;
 
 import dtos.ConferenceDTO;
 import dtos.ConferenceListDTO;
-import dtos.RentalArrangementDTO;
 import dtos.TalkListDTO;
 import dtos.UserDTO;
 import entities.Conference;
-import entities.RentalArrangement;
 import entities.Role;
 import entities.Speaker;
 import entities.Talk;
@@ -45,7 +43,6 @@ public class UserFacadeTest {
     private static UserFacade facade; 
     
     User u1,u2,u3;
-    RentalArrangement ra1,ra2,ra3;
     Conference c1,c2,c3;
     Talk t1,t2;
     Speaker s1;
@@ -63,8 +60,8 @@ public class UserFacadeTest {
         EntityManager em = emf.createEntityManager();
             Role userRole = new Role("user");
             Role adminRole = new Role("admin");
-            u2 = new User("user2", "test321", "testvej2", "testby2", "1234", 55);
-            u3 = new User("user3", "test3", "testvej3", "testby3", "1234", 100);
+            //u2 = new User("user2", "test321", "testvej2", "testby2", "1234");
+            //u3 = new User("user3", "test3", "testvej3", "testby3", "1234");
             c1 = new Conference("CES","Las Vegas",100,"søndag","eftermiddag");
             c2 = new Conference("E3","california",200,"fredag","aften");
             c3 = new Conference("Apple","Dubai",300,"lørdag","formiddag");
@@ -77,7 +74,6 @@ public class UserFacadeTest {
         try {
             em.getTransaction().begin();
            // em.createNamedQuery("Talk.deleteAllRows").executeUpdate();
-            em.createNamedQuery("RentalArrangement.deleteAllRows").executeUpdate();
             em.createNamedQuery("User.deleteAllRows").executeUpdate();
             em.createNamedQuery("Role.deleteAllRows").executeUpdate();
             em.createNamedQuery("Conference.deleteAllRows").executeUpdate();
@@ -89,8 +85,8 @@ public class UserFacadeTest {
             s1.addTalk(t1);
             c1.addTalk(t1);
             em.persist(s1);
-            em.persist(u2);
-            em.persist(u3);
+            //em.persist(u2);
+            //em.persist(u3);
             
             em.persist(c1);
             em.persist(c2);

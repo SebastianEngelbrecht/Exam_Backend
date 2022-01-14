@@ -49,10 +49,6 @@ public class User implements Serializable {
   private String userCity;
   @Column(name = "user_zip")
   private String userZip;
-  @Column(name = "user_balance")
-  private int userBalance;
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-  private List<RentalArrangement> RentalArrangement; 
   
   @ManyToMany
   private List<Role> roleList = new ArrayList<>();
@@ -75,14 +71,12 @@ public class User implements Serializable {
         return(BCrypt.checkpw(pw, userPass));
     }
 
-  public User(String userName, String userPass, String userAddress, String userCity, String userZip, int userBalance) {
+  public User(String userName, String userPass, String userAddress, String userCity, String userZip) {
     this.userName = userName;
     this.userAddress = userAddress;
     this.userCity = userCity;
     this.userZip = userZip;
-    this.userBalance = userBalance;
-    this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt());
-    this.RentalArrangement = new ArrayList<>();    
+    this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt());  
   }
   
   public User(UserDTO u) {
@@ -90,9 +84,7 @@ public class User implements Serializable {
     this.userAddress = u.getUserAddress();
     this.userCity = u.getUserCity();
     this.userZip = u.getUserZip();
-    this.userBalance = u.getUserBalance();
     this.userPass = BCrypt.hashpw(u.getUserPass(), BCrypt.gensalt());
-    this.RentalArrangement = new ArrayList<>();
   }
 
 
@@ -146,30 +138,6 @@ public class User implements Serializable {
 
     public void setUserZip(String userZip) {
         this.userZip = userZip;
-    }
-
-    public int getUserBalance() {
-        return userBalance;
-    }
-
-    public void setUserBalance(int userBalance) {
-        this.userBalance = userBalance;
-    }
-
-    public List<RentalArrangement> getRentalArrangement() {
-        return RentalArrangement;
-    }
-
-   /* public void setRentalArrangement(List<RentalArrangement> rentalArrangement) {
-        this.RentalArrangement = rentalArrangement;
-    }*/
-    
-    public void addArrangement(RentalArrangement ra) {
-        if ( ra != null) {
-           this.RentalArrangement.add(ra);
-           ra.setUser(this);
-        }
-        
     }
 
 }

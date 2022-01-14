@@ -21,7 +21,6 @@ public class UserDTO {
     private String userAddress;
     private String userCity;
     private String userZip;
-    private int userBalance;
     private List<String> roleList = new ArrayList<>();
     
     public UserDTO() {}
@@ -32,7 +31,6 @@ public class UserDTO {
         this.userAddress = user.getUserAddress();
         this.userCity = user.getUserCity();
         this.userZip = user.getUserZip();
-        this.userBalance = user.getUserBalance();
         this.roleList = user.getRolesAsStrings();
     }
 
@@ -42,12 +40,10 @@ public class UserDTO {
         this.userAddress = userAddress;
         this.userCity = userCity;
         this.userZip = userZip;
-        this.userBalance = 0;
     }
     
-    public UserDTO(String userName, int userBalance) {
+    public UserDTO(String userName) {
         this.userName = userName;
-        this.userBalance = userBalance;
     }
     
     
@@ -92,13 +88,6 @@ public class UserDTO {
         this.userZip = userZip;
     }
 
-    public int getUserBalance() {
-        return userBalance;
-    }
-
-    public void setUserBalance(int userBalance) {
-        this.userBalance = userBalance;
-    }
 
     public List<String> getRoleList() {
         return roleList;

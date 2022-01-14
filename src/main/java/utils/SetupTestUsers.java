@@ -25,8 +25,8 @@ public class SetupTestUsers {
     // Also, either delete this file, when users are created or rename and add to .gitignore
     // Whatever you do DO NOT COMMIT and PUSH with the real passwords
     
-    User user = new User("userTest", "test123", "TestVej", "TestCity", "1000", 100);
-    User admin = new User("admin", "test321123", "", "", "", 0);
+    //User user = new User("userTest", "test123", "TestVej", "TestCity", "1000");
+    //User admin = new User("admin", "test321123", "", "", "");
     Conference conf = new Conference("CES","Las Vegas",100,"Mandag","morgen");
     Conference conf2 = new Conference("E3","New York",200,"onsdag","formiddag");
     Conference conf3 = new Conference("Comic con","Los Angelos",300,"fredag","eftermiddag");
